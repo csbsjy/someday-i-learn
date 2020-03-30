@@ -1,6 +1,5 @@
 
-rig
-
+.idea
 # Created by git when using merge tools for conflicts
 *.BACKUP.*
 *.BASE.*
@@ -72,7 +71,7 @@ Temporary Items
 .gradle
 build/
 
-# Ignore Gradle GUI config
+# Ignore Gradle GUI com.study.config
 gradle-app.setting
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
@@ -87,4 +86,4 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 
-# End of https://www.gitignore.io/api/git,java,macos,gradle,java-web
+# End of https://www.gitignore.io/api/git,java,macos,gradle,java-com.study.web
