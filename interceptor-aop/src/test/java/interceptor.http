@@ -1,0 +1,21 @@
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "userId": "a1010100z",
+  "password": "1234",
+  "type": "ADMIN"
+}
+
+###
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "userId": "coupang",
+  "password": "1234",
+  "type": "GENERAL"
+}
+
+###

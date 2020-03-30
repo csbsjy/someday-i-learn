@@ -1,11 +1,10 @@
-package dto;
+package com.study.dto;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class UserLoginDto {
     private String userId;
     private String password;
@@ -15,5 +14,14 @@ public class UserLoginDto {
         this.userId = userId;
         this.password = password;
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "UserLoginDto{" +
+                "userId='" + userId + '\'' +
+                ", password='" + password + '\'' +
+                ", type='" + type + '\'' +
+                '}';
     }
 }

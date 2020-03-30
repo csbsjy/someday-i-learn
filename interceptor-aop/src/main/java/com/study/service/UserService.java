@@ -1,7 +1,6 @@
-package service;
+package com.study.service;
 
-import domain.User;
-import dto.UserLoginDto;
+import com.study.dto.UserLoginDto;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,9 @@
-package config;
+package com.study.config;
 
+import com.study.web.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import web.interceptor.LoginInterceptor;
 
 @Configuration
 public class DefaultConfig implements WebMvcConfigurer {
