@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
 
-
 #
 # Copyright 2015 the original author or authors.
 #
@@ -79,7 +78,6 @@ MINGW*)
 NONSTOP*)
   nonstop=true
   ;;
-
 esac
 
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
@@ -101,7 +99,6 @@ location of your Java installation."
 else
   JAVACMD="java"
   which java >/dev/null 2>&1 || die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
-
 
 Please set the JAVA_HOME variable in your environment to match the
 location of your Java installation."

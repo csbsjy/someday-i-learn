@@ -18,7 +18,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         if ("GET".equals(request.getMethod())) {
             return false;
         }
-        System.out.println(RequestBodyReader.getRequestBody(request));
+        // TODO: 이게 안된다 ! Stream 을 DTO 로 매핑해야함. 근데, 이 정보는 1회성임 ..
 //        UserLoginDto loginUser = extractUserLoginDto(request);
 //        if(UserType.isAdmin(loginUser.getType())){
 //            log.info("관리자 {} login 시도합니다 ------ {}", loginUser.getUserId(), LocalDateTime.now());
