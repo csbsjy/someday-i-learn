@@ -1,5 +1,3 @@
+rootProject.name = 'somday-i-learn'
+include 'spring-core'
 
-include 'hackerrank'
-
-include 'effectiveJava'
-include 'interceptor-aop'

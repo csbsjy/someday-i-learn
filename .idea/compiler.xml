@@ -8,8 +8,26 @@
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.12/48e4e5d60309ebd833bc528dcf77668eab3cd72c/lombok-1.18.12.jar" />
         </processorPath>
-        <module name="inflearn.main" />
+        <module name="somday-i-learn.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ioc-di" target="1.8" />
+      <module name="ioc-di.main" target="1.8" />
+      <module name="ioc-di.spring-core.main" target="1.8" />
+      <module name="ioc-di.spring-core.test" target="1.8" />
+      <module name="ioc-di.test" target="1.8" />
+      <module name="someday-i-learn.hackerrank.main" target="1.8" />
+      <module name="someday-i-learn.hackerrank.test" target="1.8" />
+      <module name="someday-i-learn.interceptor-aop.main" target="1.8" />
+      <module name="someday-i-learn.interceptor-aop.test" target="1.8" />
+      <module name="spring-core" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ioc-di" options="-parameters" />
+      <module name="spring-core" options="-parameters" />
+    </option>
   </component>
 </project>

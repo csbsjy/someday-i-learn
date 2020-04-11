@@ -33,10 +33,10 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         UserLoginDto loginUser = extractUserLoginDto(request);
-        if(UserType.isAdmin(loginUser.getType())){
+        if (UserType.isAdmin(loginUser.getType())) {
             log.info("관리자 {} login  ------ {}", loginUser.getUserId(), response.getStatus());
         }
-        if(UserType.isGeneral(loginUser.getType())){
+        if (UserType.isGeneral(loginUser.getType())) {
             log.info("회원 {} login  ------ {}", loginUser.getUserId(), response.getStatus());
         }
     }
