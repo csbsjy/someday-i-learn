@@ -1,12 +1,7 @@
-package com.springcore.iocdo;
+package com.springcore.iocdi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.Arrays;
 
 // SpringBoot로 넘어오고
 @SpringBootApplication // 모든 ComponentScan 등의 작업을 대신 해준다. 이 자체가 하나의 Config 파일이 된 것

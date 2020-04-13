@@ -1,6 +1,6 @@
-package com.springcore.iocdo.chap2;
+package com.springcore.iocdi.chap2;
 
-import com.springcore.iocdo.IoCDiApplication;
+import com.springcore.iocdi.IoCDiApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 

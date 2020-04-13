@@ -22,6 +22,7 @@ class Item32Test {
         // sts[0] -----> intList
         objects[0] = intList;
 
+
         int result = Integer.class.cast(stringLists[0].get(0));
         assertThat(result).isEqualTo(42);
     }

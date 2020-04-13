@@ -1,6 +1,5 @@
-package com.springcore.iocdo.chap3;
+package com.springcore.iocdi.chap3;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 @Repository

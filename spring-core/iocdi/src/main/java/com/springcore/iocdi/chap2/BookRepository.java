@@ -1,4 +1,4 @@
-package com.springcore.iocdo.chap2;
+package com.springcore.iocdi.chap2;
 
 import org.springframework.stereotype.Repository;
 

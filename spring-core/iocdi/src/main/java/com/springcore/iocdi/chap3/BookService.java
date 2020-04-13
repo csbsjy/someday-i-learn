@@ -1,4 +1,4 @@
-package com.springcore.iocdo.chap3;
+package com.springcore.iocdi.chap3;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

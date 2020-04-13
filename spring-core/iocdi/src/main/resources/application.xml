@@ -5,14 +5,14 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 <!--  굉장히 귀찮다  -->
-    <bean id="bookRepository" class="com.springcore.iocdo.chap2.BookRepository"></bean>
-    <bean id="bookService" class="com.springcore.iocdo.chap2.BookService">
+    <bean id="bookRepository" class="com.springcore.iocdi.chap2.BookRepository"></bean>
+    <bean id="bookService" class="com.springcore.iocdi.chap2.BookService">
         <property name="bookRepository" ref="bookRepository"/>
         <!-- name은 Setter의 네임을 가져온다-->
         <!-- ref: 다른 빈을 아이디로 참조한다 -->
     </bean>
 
 
-    <context:component-scan base-package="com.springcore.iocdo"></context:component-scan>
+    <context:component-scan base-package="com.springcore.iocdi"></context:component-scan>
 
 </beans>

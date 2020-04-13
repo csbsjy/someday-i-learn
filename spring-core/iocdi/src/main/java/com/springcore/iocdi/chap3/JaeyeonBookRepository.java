@@ -1,4 +1,4 @@
-package com.springcore.iocdo.chap3;
+package com.springcore.iocdi.chap3;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
