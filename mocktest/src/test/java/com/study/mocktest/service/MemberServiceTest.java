@@ -3,7 +3,7 @@ package com.study.mocktest.service;
 import com.study.mocktest.domain.MemberRepository;
 import com.study.mocktest.domain.User;
 import com.study.mocktest.dto.UserLoginRequestDto;
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -30,7 +30,7 @@ class MemberServiceTest {
     @InjectMocks
     MemberService memberService;
 
-    @Before
+    @BeforeAll
     void setUp() {
         mockHttpSession = new MockHttpSession();
         servletRequest.setSession(mockHttpSession);

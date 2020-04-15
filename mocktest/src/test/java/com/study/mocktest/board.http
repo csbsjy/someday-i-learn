@@ -1,0 +1,8 @@
+POST http://localhost:8080/board
+Content-Type: application/json
+
+
+{
+  "subject": "제목입니다",
+  "contents": "내용입니다"
+}

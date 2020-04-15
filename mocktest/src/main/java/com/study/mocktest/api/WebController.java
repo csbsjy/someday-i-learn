@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-
 @RestController
 @RequiredArgsConstructor
 public class WebController {
@@ -21,9 +19,9 @@ public class WebController {
     private final AccessUserSessionManager userSessionManager;
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(HttpServletRequest servletRequest, @RequestBody UserLoginRequestDto userLoginRequestDto) {
+    public ResponseEntity<Void> login(@RequestBody UserLoginRequestDto userLoginRequestDto) {
         AccessUser accessUser = memberService.login(userLoginRequestDto);
-        userSessionManager.saveUser(servletRequest, accessUser);
+        userSessionManager.saveUser(accessUser);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

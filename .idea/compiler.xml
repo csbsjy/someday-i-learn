@@ -17,8 +17,10 @@
       <module name="ioc-di.spring-core.main" target="1.8" />
       <module name="ioc-di.spring-core.test" target="1.8" />
       <module name="ioc-di.test" target="1.8" />
+      <module name="somday-i-learn.main" target="1.8" />
       <module name="somday-i-learn.spring-core.main" target="1.8" />
       <module name="somday-i-learn.spring-core.test" target="1.8" />
+      <module name="somday-i-learn.test" target="1.8" />
       <module name="someday-i-learn.hackerrank.main" target="1.8" />
       <module name="someday-i-learn.hackerrank.test" target="1.8" />
       <module name="someday-i-learn.interceptor-aop.main" target="1.8" />
