@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class AccessUserSessionManager {
     private static final String USER_SESSION_KEY = "ACCESS_USER";
-    private static final Long SESSION_TIME = 100000L;
 
     private final HttpServletRequest servletRequest;
     private final HttpSession httpSession;

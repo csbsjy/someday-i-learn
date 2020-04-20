@@ -1,7 +1,7 @@
 package com.study.mocktest.api;
 
 import com.study.mocktest.dto.UserLoginRequestDto;
-import com.study.mocktest.service.MemberService;
+import com.study.mocktest.service.UserService;
 import com.study.mocktest.session.AccessUser;
 import com.study.mocktest.session.AccessUserSessionManager;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class WebController {
 
-    private final MemberService memberService;
+    private final UserService userService;
     private final AccessUserSessionManager userSessionManager;
 
     @PostMapping("/login")
     public ResponseEntity<Void> login(@RequestBody UserLoginRequestDto userLoginRequestDto) {
-        AccessUser accessUser = memberService.login(userLoginRequestDto);
+        AccessUser accessUser = userService.login(userLoginRequestDto);
         userSessionManager.saveUser(accessUser);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
