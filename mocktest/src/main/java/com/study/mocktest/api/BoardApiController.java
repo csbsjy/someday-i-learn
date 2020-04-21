@@ -2,7 +2,7 @@ package com.study.mocktest.api;
 
 import com.study.mocktest.dto.ArticleUpdateRequestDto;
 import com.study.mocktest.service.BoardService;
-import com.study.mocktest.session.AccessUserSessionManager;
+import com.study.mocktest.session.UserSessionManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class BoardController {
+public class BoardApiController {
 
-    private final AccessUserSessionManager sessionManager;
+    private final UserSessionManager sessionManager;
     private final BoardService boardService;
 
     @PostMapping("/board")

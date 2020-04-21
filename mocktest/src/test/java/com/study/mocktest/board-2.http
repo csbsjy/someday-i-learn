@@ -1,4 +1,4 @@
-POST http://localhost:8888/login
+POST http://13.125.141.7:8888/login
 Content-Type: application/json
 
 {
@@ -7,7 +7,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8888/login
+POST http://13.125.141.7:8888/login
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8888/board
+POST http://13.125.141.7:8888/board
 Content-Type: application/json
 
 

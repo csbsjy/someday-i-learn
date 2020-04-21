@@ -1,4 +1,7 @@
+server:
+  port: 8888
 spring:
+  profiles: dev, test
   datasource:
     data: classpath:data.sql
     driver-class-name: org.h2.Driver
@@ -18,5 +21,4 @@ spring:
     properties:
       hibernate:
         format_sql: true
-server:
-  port: 8888
+
