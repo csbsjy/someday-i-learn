@@ -1,9 +1,0 @@
-
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    testCompile('org.springframework.boot:spring-boot-starter-test') {
-        exclude module: 'junit'
-    }
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-}
