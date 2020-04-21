@@ -13,6 +13,6 @@ public class AccessUser {
     }
 
     public static AccessUser of(UserLoginRequestDto userLoginRequestDto) {
-        return new AccessUser(userLoginRequestDto.getUserId());
+        return new AccessUser(userLoginRequestDto.getEmail());
     }
 }

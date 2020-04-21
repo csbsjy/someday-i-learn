@@ -2,16 +2,16 @@ package com.study.mocktest.dto;
 
 
 public class UserLoginRequestDto {
-    private String userId;
+    private String email;
     private String password;
 
     public UserLoginRequestDto(String id, String password) {
-        this.userId = id;
+        this.email = id;
         this.password = password;
     }
 
-    public String getUserId() {
-        return this.userId;
+    public String getEmail() {
+        return this.email;
     }
 
     public String getPassword() {
