@@ -120,10 +120,180 @@ public class BoardService {
 ```
 
 
-이 과정에서 게시글작성 통합테스트, BoardService 의 단위테스트를 작성할 때 문제가 발생했다.
+이 과정에서 게시글 작성과 관련된 단위테스트를 작성할 때 문제가 발생했다.
 통합테스트는 User 의 로그인세션이 없으면 아예 진행조차 할 수 없었고, boardservice 에서 게시글작성 시 게시글의 유저정보는 NULl 로 들어가기 때문이다.
 
 
 세션이 있다고 치고 테스트코드를 작성할 수 없을까 하다가 MockHttpSession에 대해 알게되었다. 
 
-먼저 BoardService 의 "게시글작성"에 대한 단위테스트를 진행해보자. 
+
+
+BoardService 는 ArticleRepository, AccessUserSessionManager 의존을 가진다. 
+
+```java
+ private final ArticleRepository articleRepository;
+ private final AccessUserSessionManager sessionManager;
+```
+
+AccessUserSessionManager 는 HttpServletRequest에 의존하고 있고, 이 HttpServletRequest와 여기서 얻어진 HttpSession 을 Mocking 하는 것이 핵심이다.
+
+```java
+    private final HttpServletRequest servletRequest; // Mocking 대상 
+```
+
+HttpServletRequest는 interface 이고, 스프링부트는 @Autowired 를 통해 프록시 빈을 자동으로 주입받는다.
+테스트에서는 이 프록시 빈 대신 MockHttpServletRequest를 사용해야한다. 
+
+다른 HttpServletRequest 를 사용할 수 있게 하기 위해 인터페이스로 분리하였다.
+
+
+**UserSessionManager.java**
+```java
+public interface UserSessionManager {
+    void saveUser(AccessUser accessUser);
+    AccessUser extractUser();
+}
+```
+
+
+그리고 BoardService 의 AccessUserManager 를 UserSessionManager 인터페이스로 바꿨다.
+
+
+
+HttpSession 이 필요한 로직의 테스트를 위한 TestUserSessionManager 를 다음과 같이 작성할 수 있다.
+
+```java
+@Profile("test")
+@Component
+public class TestUserSessionManager implements UserSessionManager {
+    private static final String USER_SESSION_KEY = "ACCESS_USER";
+
+    private final MockHttpServletRequest servletRequest; // HttpServletRequest를 구현한다.
+
+    public TestUserSessionManager() {
+        MockHttpSession httpSession = new MockHttpSession();
+        httpSession.setAttribute(USER_SESSION_KEY, new AccessUser("a1010100z")); // 유저가 로그인했다 치고
+        servletRequest = new MockHttpServletRequest();
+        servletRequest.setSession(httpSession);
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(servletRequest));
+    }
+
+    public void saveUser(AccessUser accessUser) {
+        servletRequest.getSession().setAttribute(USER_SESSION_KEY, accessUser);
+    }
+
+    public AccessUser extractUser() {
+        return (AccessUser) servletRequest.getSession().getAttribute(USER_SESSION_KEY);
+    }
+}
+
+``` 
+
+
+
+이렇게 짜고 아래 테스트를 수행하면 테스트는 수행한다. 
+정상적으로 세션에 저장된 유저의 아이디를 가져와서 저장하는 것이다. 
+
+```java
+    @Autowired
+    ArticleRepository articleRepository;
+
+    @Autowired
+    BoardService boardService;
+
+    @DisplayName("글 제목, 글 내용을 작성하면 유저 ID 정보까지 같이 저장된다")
+    @Test
+    void write() {
+        //given
+        ArticleUpdateRequestDto requestDto = new ArticleUpdateRequestDto("글 제목", "글 내용");
+
+        //when
+        boardService.write(requestDto);
+
+
+        //then
+        assertThat(articleRepository.findByUserId("a1010100z")).isNotNull();
+    }
+```
+
+
+근데 아무리 생각해도 TestUserSessionManager 가 진짜 이상해보였다.
+굳이 MockHttpServletRequest 를 사용할 이유가 하나도 없어보였다. 
+UserSessionManager는 유저 정보를 저장하거나 가져오는 역할을 가지는데, 굳이 세션에 저장하고 불렁오는 것까지 "BoardService" 에서 확인을 해야할까? 싶었다.
+BoardService 는 잘 감싸진 UserSessionManager를 사용하는 정도만 알면 될 것 같아 다음처럼 수정했다.
+
+
+```java
+@Profile("test")
+@Component
+public class TestUserSessionManager implements UserSessionManager {
+    private static final String USER_SESSION_KEY = "ACCESS_USER";
+    private Map<String, AccessUser> accessUserMap = new HashMap<>();
+
+    public void saveUser(AccessUser accessUser) {
+        accessUserMap.put(USER_SESSION_KEY, accessUser);
+    }
+
+    public AccessUser extractUser() {
+        return accessUserMap.get(USER_SESSION_KEY);
+    }
+}
+``` 
+
+
+그리고 테스트의 given 절을 추가했다
+
+```java
+    @DisplayName("글 제목, 글 내용을 작성하면 유저 ID 정보까지 같이 저장된다")
+    @Test
+    void write() {
+        //given
+        userSessionManager.saveUser(new AccessUser("a1010100z")); // 세션에 저장ㅇ
+        ArticleUpdateRequestDto requestDto = new ArticleUpdateRequestDto("글 제목", "글 내용");
+
+        //when
+        boardService.write(requestDto);
+
+
+        //then
+        assertThat(articleRepository.findByUserId("a1010100z")).isNotNull();
+    }
+```
+
+
+
+BoardService 게시글작성 테스트에서는 UserSessionManager 인터페이스로 얻어온 User의 정보를 함께 저장되는 것을 확인했다.
+
+실제 UserSessonManager만 정상적으로 동작함이 확인된다면 BoardService 역시 실제 Session 을 사용해도 정상 작동됨을 믿을 수 있따.
+
+
+
+AccessUserSessionManager는 HttpServletRequest를 직접적으로 의존한다. 여기서 MockHttpServletRequest를 쓸 수 있겠다.
+
+```java
+@SpringBootTest(classes = AccessUserSessionManager.class)
+class AccessUserSessionManagerTest {
+
+    MockHttpServletRequest servletRequest;
+    AccessUserSessionManager userSessionManager;
+
+    @BeforeEach
+    void setUp() {
+        MockHttpSession httpSession = new MockHttpSession();
+        servletRequest = new MockHttpServletRequest();
+        servletRequest.setSession(httpSession);
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(servletRequest));
+        userSessionManager = new AccessUserSessionManager(servletRequest);
+    }
+
+    @DisplayName("유저를 저장하면 세션에서 꺼내올 수 있다.")
+    @Test
+    void sessionSave() {
+        userSessionManager.saveUser(new AccessUser("a1010100z"));
+        assertThat(((AccessUser) servletRequest.getSession().getAttribute("ACCESS_USER")).getUserId())
+                .isEqualTo("a1010100z");
+    }
+
+}
+``` 
+

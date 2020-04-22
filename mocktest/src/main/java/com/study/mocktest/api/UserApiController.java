@@ -11,15 +11,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequiredArgsConstructor
 public class UserApiController {
 
     private final UserService userService;
     private final UserSessionManager userSessionManager;
+    private final HttpServletRequest servletRequest;
 
     @PostMapping("/login")
     public ResponseEntity<Void> login(@RequestBody UserLoginRequestDto userLoginRequestDto) {
+        System.out.println(servletRequest.getClass());
         AccessUser accessUser = userService.login(userLoginRequestDto);
         userSessionManager.saveUser(accessUser);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
