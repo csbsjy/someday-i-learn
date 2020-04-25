@@ -15,7 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AccessUserSessionManagerTest {
 
     MockHttpServletRequest servletRequest;
-
     AccessUserSessionManager userSessionManager;
 
     @BeforeEach
@@ -27,7 +26,7 @@ class AccessUserSessionManagerTest {
         userSessionManager = new AccessUserSessionManager(servletRequest);
     }
 
-    @DisplayName("유저를 세션에 저장한다")
+    @DisplayName("유저를 저장하면 세션에서 꺼내올 수 있다.")
     @Test
     void sessionSave() {
         userSessionManager.saveUser(new AccessUser("a1010100z"));
